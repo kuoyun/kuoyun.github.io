@@ -1,0 +1,7 @@
+url: 'https://www.kuoyun.com.tw'
+name: '國耘有限公司 Gewinnen LTD.'
+description: '國耘有限公司提供工程材料批發、工程配管與水處理設備安裝銷售等環境工程整合服務。'
+lang: zh-TW
+
+plugins:
+  - jekyll-feed

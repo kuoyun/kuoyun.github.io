@@ -1,0 +1,20 @@
+- title: 首頁
+  url: /
+- title: 工程實績
+  url: /cases/
+- title: 產品服務
+  url: /services/
+- title: 關於我們
+  url: /about-us/
+  children:
+    - title: 團隊願景
+      url: /team-vision/
+    - title: 聯絡我們
+      url: /contact-us/
+- title: 訊息中心
+  url: /info/
+  children:
+    - title: 常見問題
+      url: /faq/
+    - title: 最新消息
+      url: /news/

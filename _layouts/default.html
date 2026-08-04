@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="{{ site.lang | default: 'zh-TW' }}">
+<head>
+{% include head.html %}
+</head>
+<body class="wp-theme-hello-elementor elementor-default elementor-kit-23 elementor-page{% if page.id %} elementor-page-{{ page.id }}{% endif %}{% if page.url == '/' %} home{% endif %}">
+{% include header.html %}
+<main id="content" class="site-main{% if page.id %} post-{{ page.id }}{% endif %}">
+<div class="page-header"><h1 class="entry-title">{{ page.heading | default: page.title }}</h1></div>
+<div class="page-content">
+{{ content }}
+</div>
+</main>
+{% include footer.html %}
+<script src="{{ '/assets/js/main.js' | relative_url }}"></script>
+</body>
+</html>
