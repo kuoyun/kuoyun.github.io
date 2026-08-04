@@ -5,3 +5,15 @@ lang: zh-TW
 
 plugins:
   - jekyll-feed
+
+collections:
+  cases:
+    output: true
+    permalink: /:name/
+
+defaults:
+  - scope:
+      path: ""
+      type: cases
+    values:
+      layout: case

@@ -256,18 +256,24 @@
 /* FAQ accordion: animate the expand/collapse instead of an instant show/hide,
    and give the expanded question a solid background — the vendored CSS turns
    the title text and icon white on `.elementor-active` but never changes the
-   background away from white, so the expanded title was unreadable. */
+   background away from white, so the expanded title was unreadable.
+   !important: every accordion widget also carries its own inline <style> tag
+   (an Elementor export artifact) with `.elementor-tab-content{display:none;
+   padding:15px 20px}`. That tag sits in the page body, after this stylesheet
+   in <head>, so at equal specificity it was winning the cascade and silently
+   putting display/padding back to their closed-state values on every page —
+   the content div toggled its classes correctly but stayed invisible. */
 .elementor-accordion .elementor-tab-content {
-  display: block;
+  display: block !important;
   max-height: 0;
-  padding-top: 0;
-  padding-bottom: 0;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
   overflow: hidden;
   transition: max-height .3s ease, padding-top .3s ease, padding-bottom .3s ease;
 }
 .elementor-accordion .elementor-tab-content.is-open {
-  padding-top: 15px;
-  padding-bottom: 15px;
+  padding-top: 15px !important;
+  padding-bottom: 15px !important;
 }
 .elementor-accordion .elementor-tab-title {
   transition: background-color .2s ease;

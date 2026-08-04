@@ -1,5 +1,15 @@
 document.addEventListener('DOMContentLoaded', function () {
 
+  // Dropdown triggers ("關於我們", "訊息中心", the language flag) use href="#"
+  // just to be focusable/hoverable — they open a submenu on hover/inert tap,
+  // not a real page. Without this they'd navigate to "#" and leave a stray
+  // "#" in the address bar.
+  document.querySelectorAll('.site-navigation a[href="#"], .site-navigation-dropdown a[href="#"]').forEach(function (a) {
+    a.addEventListener('click', function (e) {
+      e.preventDefault();
+    });
+  });
+
   // Mobile navigation toggle
   var toggle = document.querySelector('.site-navigation-toggle');
   var dropdown = document.getElementById('site-navigation-dropdown');
