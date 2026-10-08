@@ -16,12 +16,12 @@
     position: absolute;
     inset: 0;
     z-index: -1;
-    background: linear-gradient(180deg, rgb(12 29 32 / .6) 0%, rgb(12 29 32 / 0) 24%, rgb(12 29 32 / .2) 46%, rgb(12 29 32 / .86) 76%, var(--ink) 100%);
+    background: linear-gradient(180deg, rgba(12, 29, 32, .6) 0%, rgba(12, 29, 32, 0) 24%, rgba(12, 29, 32, .2) 46%, rgba(12, 29, 32, .86) 76%, var(--ink) 100%);
 
     @media (min-width: 62em) {
       background:
-        linear-gradient(90deg, rgb(12 29 32 / .78) 0%, rgb(12 29 32 / .25) 55%, rgb(12 29 32 / 0) 80%),
-        linear-gradient(180deg, rgb(12 29 32 / .5) 0%, rgb(12 29 32 / 0) 25%, rgb(12 29 32 / 0) 62%, var(--ink) 100%);
+        linear-gradient(90deg, rgba(12, 29, 32, .78) 0%, rgba(12, 29, 32, .25) 55%, rgba(12, 29, 32, 0) 80%),
+        linear-gradient(180deg, rgba(12, 29, 32, .5) 0%, rgba(12, 29, 32, 0) 25%, rgba(12, 29, 32, 0) 62%, var(--ink) 100%);
     }
   }
 
@@ -45,7 +45,7 @@
   &__inner {
     align-self: end;
     padding-top: calc(var(--header-h) + 3rem);
-    padding-bottom: clamp(2rem, 1rem + 3vw, 3.5rem);
+    padding-bottom: clamp(2rem, calc(1rem + 3vw), 3.5rem);
   }
 
   &__eyebrow { animation: fade-up 1s var(--ease) both .2s; }
@@ -76,7 +76,7 @@
   &__lead {
     max-width: 34rem;
     margin-top: 1.5rem;
-    color: rgb(255 255 255 / .84);
+    color: rgba(255, 255, 255, .84);
     font-size: var(--fs-lg);
     animation: fade-up 1s var(--ease) both .7s;
   }
@@ -104,7 +104,7 @@
     display: inline-flex;
     align-items: center;
     gap: .75rem;
-    color: rgb(255 255 255 / .72);
+    color: rgba(255, 255, 255, .72);
     font-size: var(--fs-xs);
     letter-spacing: .18em;
     text-transform: uppercase;
@@ -115,7 +115,7 @@
     overflow: hidden;
     width: 1px;
     height: 2.25rem;
-    background: rgb(255 255 255 / .25);
+    background: rgba(255, 255, 255, .25);
 
     &::after {
       content: "";
@@ -137,12 +137,12 @@
     a {
       display: inline-flex;
       gap: .625rem;
-      color: rgb(255 255 255 / .78);
+      color: rgba(255, 255, 255, .78);
       transition: color .3s;
       &:hover { color: #fff; }
     }
 
-    span { color: rgb(255 255 255 / .45); font-variant-numeric: tabular-nums; }
+    span { color: rgba(255, 255, 255, .45); font-variant-numeric: tabular-nums; }
   }
 }
 
@@ -155,7 +155,7 @@ html:lang(en) .hero__title {
 // Infinite marquee band
 .marquee {
   overflow: hidden;
-  padding-block: clamp(1.25rem, .9rem + 1.6vw, 2.25rem);
+  padding-block: clamp(1.25rem, calc(.9rem + 1.6vw), 2.25rem);
   background: var(--ink);
   color: var(--on-ink);
 
@@ -171,7 +171,7 @@ html:lang(en) .hero__title {
     display: flex;
     flex: none;
     align-items: center;
-    font-size: clamp(1.75rem, 1rem + 3.4vw, 4.25rem);
+    font-size: clamp(1.75rem, calc(1rem + 3.4vw), 4.25rem);
     font-weight: 800;
     line-height: 1.15;
     font-stretch: 110%;
@@ -185,7 +185,7 @@ html:lang(en) .hero__title {
   // fill in the band colour: only the outer half of the stroke stays visible.
   &__word--outline {
     color: var(--ink);
-    -webkit-text-stroke: 2px rgb(242 239 232 / .6);
+    -webkit-text-stroke: 2px rgba(242, 239, 232, .6);
     paint-order: stroke fill;
   }
 
@@ -261,7 +261,7 @@ html:lang(en) .hero__title {
     align-content: start;
     gap: .75rem 1rem;
     height: 100%;
-    padding: clamp(1.5rem, 1rem + 1.6vw, 2.5rem);
+    padding: clamp(1.5rem, calc(1rem + 1.6vw), 2.5rem);
     border: 1px solid var(--line);
     border-radius: var(--radius);
     background: var(--surface);
@@ -297,7 +297,7 @@ html:lang(en) .hero__title {
 
   &__title {
     grid-area: title;
-    margin-top: clamp(1rem, .5rem + 2vw, 2.5rem);
+    margin-top: clamp(1rem, calc(.5rem + 2vw), 2.5rem);
     font-size: var(--fs-xl);
     font-weight: 800;
   }
@@ -335,7 +335,7 @@ html:lang(en) .hero__title {
 
   display: grid;
   gap: .625rem;
-  padding-block: clamp(1.75rem, 1rem + 2vw, 2.75rem);
+  padding-block: clamp(1.75rem, calc(1rem + 2vw), 2.75rem);
   border-bottom: 1px solid var(--line-light);
 
   &:nth-child(1) { --accent: var(--green); }
@@ -349,7 +349,7 @@ html:lang(en) .hero__title {
   }
 
   &__title {
-    font-size: clamp(2.75rem, 1.5rem + 5.5vw, 6.5rem);
+    font-size: clamp(2.75rem, calc(1.5rem + 5.5vw), 6.5rem);
     font-weight: 900;
     line-height: 1;
     font-stretch: 112%;
@@ -377,7 +377,7 @@ html:lang(en) .hero__title {
   }
 }
 
-html:lang(en) .pillar__title { font-size: clamp(2.25rem, 1.2rem + 4.5vw, 5.5rem); letter-spacing: -.03em; }
+html:lang(en) .pillar__title { font-size: clamp(2.25rem, calc(1.2rem + 4.5vw), 5.5rem); letter-spacing: -.03em; }
 
 // News (home)
 .news-section__grid {

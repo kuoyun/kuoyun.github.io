@@ -1,7 +1,7 @@
 // Inner pages: services, case study, FAQ, contact, hub, 404.
 
 // Services
-.services__intro { margin-bottom: clamp(2.5rem, 1.5rem + 4vw, 5rem); }
+.services__intro { margin-bottom: clamp(2.5rem, calc(1.5rem + 4vw), 5rem); }
 
 .service-list {
   border-top: 1px solid var(--line-strong);
@@ -14,7 +14,7 @@
   display: grid;
   grid-template-columns: 1fr auto;
   gap: 1.25rem;
-  padding-block: clamp(2rem, 1.5rem + 2.5vw, 4rem);
+  padding-block: clamp(2rem, calc(1.5rem + 2.5vw), 4rem);
   border-bottom: 1px solid var(--line-strong);
   scroll-margin-top: var(--header-h);
 
@@ -149,7 +149,7 @@ html:lang(en) .service-row__title { letter-spacing: -.02em; }
     display: grid;
     gap: 1.25rem;
     justify-items: start;
-    margin-bottom: clamp(2rem, 1.5rem + 2vw, 3.5rem);
+    margin-bottom: clamp(2rem, calc(1.5rem + 2vw), 3.5rem);
   }
 
   &__title {
@@ -201,7 +201,7 @@ html:lang(en) .service-row__title { letter-spacing: -.02em; }
     width: 2.5rem;
     height: 2.5rem;
     border-radius: 50%;
-    background: rgb(255 255 255 / .92);
+    background: rgba(255, 255, 255, .92);
     color: var(--ink);
     transition: opacity .4s var(--ease), transform .4s var(--ease);
   }
@@ -232,14 +232,14 @@ html:lang(en) .service-row__title { letter-spacing: -.02em; }
   &[open] { display: grid; place-items: center; }
 
   &::backdrop {
-    background: rgb(12 29 32 / .92);
+    background: rgba(12, 29, 32, .92);
     -webkit-backdrop-filter: blur(6px);
     backdrop-filter: blur(6px);
   }
 
   &__img {
     width: auto;
-    max-width: min(100%, 1400px);
+    max-width: #{"min(100%, 1400px)"};
     max-height: 86dvh;
     border-radius: var(--radius-sm);
     animation: fade-up .5s var(--ease) both;
@@ -247,7 +247,7 @@ html:lang(en) .service-row__title { letter-spacing: -.02em; }
 
   &__close {
     position: fixed;
-    top: max(1rem, env(safe-area-inset-top));
+    top: #{"max(1rem, env(safe-area-inset-top))"};
     right: 1rem;
     display: grid;
     place-items: center;
@@ -350,7 +350,7 @@ html:lang(en) .service-row__title { letter-spacing: -.02em; }
     display: grid;
     justify-items: start;
     gap: 1rem;
-    padding: clamp(1.75rem, 1.25rem + 1.5vw, 2.5rem);
+    padding: clamp(1.75rem, calc(1.25rem + 1.5vw), 2.5rem);
     border-radius: var(--radius);
     background: var(--ink);
     color: var(--on-ink-muted);
@@ -465,7 +465,7 @@ html:lang(en) .service-row__title { letter-spacing: -.02em; }
 }
 
 // Hub (section landing)
-.hub__intro { margin-bottom: clamp(2.5rem, 1.5rem + 3vw, 4rem); }
+.hub__intro { margin-bottom: clamp(2.5rem, calc(1.5rem + 3vw), 4rem); }
 
 .hub-cards {
   display: grid;
@@ -483,8 +483,8 @@ html:lang(en) .service-row__title { letter-spacing: -.02em; }
   align-content: start;
   gap: .875rem;
   height: 100%;
-  min-height: clamp(15rem, 12rem + 8vw, 21rem);
-  padding: clamp(1.5rem, 1rem + 2vw, 2.75rem);
+  min-height: clamp(15rem, calc(12rem + 8vw), 21rem);
+  padding: clamp(1.5rem, calc(1rem + 2vw), 2.75rem);
   border: 1px solid var(--line);
   border-radius: var(--radius);
   background: var(--surface);
@@ -518,8 +518,8 @@ html:lang(en) .service-row__title { letter-spacing: -.02em; }
 
   &__go {
     position: absolute;
-    top: clamp(1.25rem, 1rem + 1.5vw, 2.25rem);
-    right: clamp(1.25rem, 1rem + 1.5vw, 2.25rem);
+    top: clamp(1.25rem, calc(1rem + 1.5vw), 2.25rem);
+    right: clamp(1.25rem, calc(1rem + 1.5vw), 2.25rem);
     display: grid;
     place-items: center;
     width: 3rem;
@@ -561,7 +561,7 @@ html:lang(en) .service-row__title { letter-spacing: -.02em; }
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
-    font-size: clamp(7rem, 4rem + 16vw, 20rem);
+    font-size: clamp(7rem, calc(4rem + 16vw), 20rem);
     font-weight: 900;
     font-stretch: 125%;
     line-height: .85;

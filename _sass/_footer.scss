@@ -30,7 +30,7 @@
     flex-direction: column;
     align-items: flex-start;
     gap: 2.5rem;
-    margin-top: clamp(2rem, 1rem + 4vw, 4rem);
+    margin-top: clamp(2rem, calc(1rem + 4vw), 4rem);
 
     @media (min-width: 48em) {
       flex-direction: row;
@@ -46,7 +46,7 @@
   }
 
   &__button {
-    --size: clamp(8.5rem, 6rem + 8vw, 12.5rem);
+    --size: clamp(8.5rem, calc(6rem + 8vw), 12.5rem);
 
     flex: none;
     display: grid;
@@ -75,7 +75,7 @@ html:lang(en) .cta__title { letter-spacing: -.015em; }
 
 .site-footer {
   overflow: hidden;
-  padding-top: clamp(3.5rem, 2rem + 4vw, 6rem);
+  padding-top: clamp(3.5rem, calc(2rem + 4vw), 6rem);
   border-top: 1px solid var(--line-light);
   background: var(--ink);
   color: var(--on-ink-muted);
@@ -150,13 +150,13 @@ html:lang(en) .cta__title { letter-spacing: -.015em; }
 
   // Giant brand wordmark fading into the page bottom
   &__wordmark {
-    margin-top: clamp(3rem, 2rem + 4vw, 6rem);
-    background: linear-gradient(180deg, rgb(242 239 232 / .16), rgb(242 239 232 / 0) 88%);
+    margin-top: clamp(3rem, calc(2rem + 4vw), 6rem);
+    background: linear-gradient(180deg, rgba(242, 239, 232, .16), rgba(242, 239, 232, 0) 88%);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
     // The word is ~7.15em wide at this weight/width: fill the container exactly.
-    font-size: min(calc((100vw - 2 * var(--gutter)) / 7.3), calc(var(--max) / 7.3));
+    font-size: #{"min(calc((100vw - 2 * var(--gutter)) / 7.3), calc(var(--max) / 7.3))"};
     font-weight: 800;
     font-stretch: 125%;
     line-height: .82;
