@@ -5,10 +5,10 @@ phone: '+886975269159'
 phone_display: '+886 975 269 159'
 email: gewinnen@kuoyun.com.tw
 # email_alt: kuoyun2024@gmail.com
-logo: /wp-content/uploads/2024/07/Header_logo.png
-logo_light: /wp-content/uploads/2024/07/Footer_logo.png
-logo_square: /wp-content/uploads/2024/08/Logo_h.png
-og_image: /wp-content/uploads/2024/08/index-Banner-1024x703.jpg
+logo: /assets/image/brand/logo.png
+logo_light: /assets/image/brand/logo-light.png
+logo_square: /assets/image/brand/logo-mark.png
+og_image: /assets/image/home/hero-1024.jpg
 map_query: 新竹縣竹北市博愛街711巷二十四弄30號
 
 address:

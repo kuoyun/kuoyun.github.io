@@ -180,9 +180,13 @@ html:lang(en) .hero__title {
 
   &__word { padding-inline: .45em; }
 
+  // CJK glyphs are built from overlapping strokes, so a plain text-stroke
+  // outlines every inner contour. Paint the stroke first and cover it with a
+  // fill in the band colour: only the outer half of the stroke stays visible.
   &__word--outline {
-    color: transparent;
-    -webkit-text-stroke: 1px rgb(242 239 232 / .55);
+    color: var(--ink);
+    -webkit-text-stroke: 2px rgb(242 239 232 / .6);
+    paint-order: stroke fill;
   }
 
   &__dot {

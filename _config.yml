@@ -36,7 +36,11 @@ defaults:
     values: { lang: zh-TW }
   - scope: { path: "", type: pages }
     values: { layout: page }
-  - scope: { path: "en" }
+  - scope: { path: "pages/en" }
+    values: { lang: en }
+  - scope: { path: "_posts/en" }
+    values: { lang: en }
+  - scope: { path: "_cases/en" }
     values: { lang: en }
   - scope: { path: "", type: posts }
     values: { layout: post, nav: info }
@@ -50,10 +54,3 @@ exclude:
   - vendor
   - .bundle
   - .jekyll-cache
-  # Leftovers from the WordPress export that the site no longer uses.
-  - wp-content/uploads/elementor/css
-  - wp-content/uploads/essential-addons-elementor
-  - wp-content/uploads/seedprod-help-docs
-  - wp-content/uploads/themeisle-gutenberg
-  - wp-content/uploads/wpcode
-  - wp-content/uploads/.htaccess
