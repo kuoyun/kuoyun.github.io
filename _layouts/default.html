@@ -1,16 +1,19 @@
-<!DOCTYPE html>
-<html lang="{{ site.lang | default: 'zh-TW' }}">
+{%- include context.html -%}
+<!doctype html>
+<html lang="{{ t.html_lang }}" class="no-js">
 <head>
 {% include head.html %}
 </head>
-<body class="wp-theme-hello-elementor elementor-default elementor-kit-23 elementor-page{% assign wpid = page.wp_id | default: page.id %}{% if wpid %} elementor-page-{{ wpid }}{% endif %}{% if page.url == '/' %} home{% endif %}">
+<body id="top" class="layout-{{ page.layout | default: 'page' }}{% if page.hero_dark %} has-dark-hero{% endif %}">
+<a class="skip-link" href="#main">{{ t.skip }}</a>
 {% include header.html %}
-<main id="content" class="site-main{% if wpid %} post-{{ wpid }}{% endif %}">
-<div class="page-content">
+<main id="main" tabindex="-1">
 {{ content }}
-</div>
 </main>
+{%- unless page.hide_cta %}
+{% include cta.html %}
+{%- endunless %}
 {% include footer.html %}
-<script src="{{ '/assets/js/main.js' | relative_url }}"></script>
+<script src="{{ '/assets/js/main.js' | relative_url }}" defer></script>
 </body>
 </html>

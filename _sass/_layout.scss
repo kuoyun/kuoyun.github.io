@@ -1,0 +1,174 @@
+// Page scaffolding: container, sections, section headings, inner-page hero.
+
+.container {
+  width: 100%;
+  max-width: calc(var(--max) + var(--gutter) * 2);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.section {
+  position: relative;
+  padding-block: var(--section);
+}
+
+.section--tight { padding-block: clamp(3rem, 2rem + 4vw, 6rem) var(--section); }
+.section--alt { background: var(--paper-2); }
+
+.section--ink {
+  background: var(--ink);
+  color: var(--on-ink-muted);
+
+  h2, h3 { color: var(--on-ink); }
+}
+
+// Numbered section heading: "01 — Label" + large title (+ optional link)
+.section-head {
+  display: grid;
+  gap: 1rem;
+  margin-bottom: clamp(2.5rem, 1.5rem + 3vw, 4.5rem);
+
+  &__meta {
+    display: flex;
+    align-items: center;
+    gap: .875rem;
+  }
+
+  &__index {
+    padding: .0625rem .625rem;
+    border: 1px solid var(--line-strong);
+    border-radius: 999px;
+    color: var(--ink);
+    font-size: var(--fs-xs);
+    font-weight: 600;
+    line-height: 1.6;
+    font-variant-numeric: tabular-nums;
+  }
+
+  &__title {
+    max-width: 18ch;
+    font-size: var(--fs-3xl);
+    font-weight: 800;
+    line-height: 1.12;
+    font-stretch: 105%;
+  }
+
+  &__link { justify-self: start; }
+
+  &--light {
+    .section-head__index { border-color: var(--line-light); color: var(--on-ink); }
+    .eyebrow { color: var(--on-ink-muted); }
+    .section-head__title { color: var(--on-ink); }
+  }
+
+  @media (min-width: 62em) {
+    grid-template-columns: 1fr auto;
+    align-items: end;
+    column-gap: 3rem;
+
+    &__meta { grid-column: 1 / -1; }
+    &__link { justify-self: end; margin-bottom: .5rem; }
+  }
+}
+
+html:lang(en) .section-head__title { max-width: 20ch; letter-spacing: -.015em; }
+
+// Inner-page header
+.page-hero {
+  position: relative;
+  overflow: hidden;
+  padding-top: calc(var(--header-h) + clamp(2.25rem, 1.5rem + 4vw, 5.5rem));
+  padding-bottom: clamp(2.5rem, 1.5rem + 3vw, 4.5rem);
+  border-bottom: 1px solid var(--line);
+
+  &__inner {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    gap: 1.25rem;
+    justify-items: start;
+  }
+
+  &__eyebrow { margin-top: .75rem; }
+
+  &__title {
+    max-width: 18ch;
+    font-size: clamp(2.25rem, 1.2rem + 4.6vw, 5.5rem);
+    font-weight: 900;
+    line-height: 1.08;
+    font-stretch: 108%;
+    animation: fade-up 1s var(--ease) both .1s;
+  }
+
+  &__lead {
+    max-width: 40rem;
+    color: var(--muted);
+    font-size: var(--fs-lg);
+    animation: fade-up 1s var(--ease) both .2s;
+  }
+
+  // Oversized outlined label behind the title (decorative)
+  &__ghost {
+    display: none;
+    position: absolute;
+    right: calc(var(--gutter) * -.5);
+    bottom: -.2em;
+    z-index: 0;
+    color: transparent;
+    -webkit-text-stroke: 1px rgb(12 29 32 / .1);
+    font-size: clamp(6rem, 2rem + 12vw, 15rem);
+    font-weight: 900;
+    font-stretch: 125%;
+    line-height: 1;
+    letter-spacing: -.02em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    pointer-events: none;
+    user-select: none;
+
+    @media (min-width: 62em) { display: block; }
+  }
+
+  &--post { border-bottom: 0; padding-bottom: 0; }
+  &--post .page-hero__title { max-width: 24ch; font-size: var(--fs-3xl); }
+}
+
+html:lang(en) .page-hero__title { letter-spacing: -.02em; }
+
+.breadcrumbs ol {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .25rem .5rem;
+  list-style: none;
+  color: var(--muted);
+  font-size: var(--fs-sm);
+  line-height: 1.5;
+}
+
+.breadcrumbs li + li::before {
+  content: "/";
+  margin-right: .5rem;
+  opacity: .45;
+}
+
+.breadcrumbs a {
+  transition: color .2s;
+  &:hover { color: var(--ink); text-decoration: underline; text-underline-offset: .2em; }
+}
+
+.breadcrumbs [aria-current] { color: var(--ink); }
+
+.pager {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 1rem 2rem;
+  padding-block: 2rem var(--section);
+  border-top: 1px solid var(--line);
+
+  &__label {
+    color: var(--muted);
+    font-weight: 500;
+    &::after { content: "—"; margin-inline: .5rem; }
+  }
+}

@@ -1,0 +1,51 @@
+// Design tokens. Colours come from the logo: green (buildings), orange
+// (earth), blue (water) — used together as the brand "stripe".
+
+:root {
+  --ink: #0c1d20;
+  --ink-2: #13292d;
+  --text: #24383b;
+  --muted: #56676a;
+  --paper: #f5f3ee;
+  --paper-2: #ebe7de;
+  --surface: #fffefb;
+  --line: rgb(12 29 32 / .12);
+  --line-strong: rgb(12 29 32 / .24);
+  --line-light: rgb(255 255 255 / .16);
+  --on-ink: #f2efe8;
+  --on-ink-muted: rgb(242 239 232 / .68);
+
+  --blue: #1ea8d6;
+  --blue-deep: #0a6f93;
+  --green: #4fae68;
+  --orange: #f0a04b;
+  --stripe: linear-gradient(90deg, var(--green) 0 33.33%, var(--orange) 33.33% 66.66%, var(--blue) 66.66% 100%);
+
+  --font: "Archivo", "Noto Sans TC", "PingFang TC", "Heiti TC", "Microsoft JhengHei", system-ui, sans-serif;
+
+  --fs-xs: .75rem;
+  --fs-sm: .875rem;
+  --fs-md: 1rem;
+  --fs-lg: clamp(1.0625rem, 1rem + .3vw, 1.25rem);
+  --fs-xl: clamp(1.1875rem, 1.05rem + .7vw, 1.625rem);
+  --fs-2xl: clamp(1.5rem, 1.15rem + 1.6vw, 2.5rem);
+  --fs-3xl: clamp(2rem, 1.2rem + 3.6vw, 4.5rem);
+  --fs-display: clamp(2.75rem, 1rem + 8vw, 8.75rem);
+
+  --gutter: clamp(1.25rem, 4.5vw, 3.5rem);
+  --max: 84rem;
+  --section: clamp(4.5rem, 3rem + 6.5vw, 9rem);
+  --radius: clamp(1rem, .7rem + 1.2vw, 1.75rem);
+  --radius-sm: .75rem;
+  --header-h: 4rem;
+
+  --ease: cubic-bezier(.22, 1, .36, 1);
+  --ease-in-out: cubic-bezier(.65, 0, .35, 1);
+  --shadow: 0 1px 2px rgb(12 29 32 / .05), 0 18px 40px -18px rgb(12 29 32 / .28);
+
+  interpolate-size: allow-keywords;
+}
+
+@media (min-width: 62em) {
+  :root { --header-h: 5rem; }
+}

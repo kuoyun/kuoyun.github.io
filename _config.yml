@@ -1,10 +1,30 @@
 url: 'https://www.kuoyun.com.tw'
+baseurl: ''
 name: '國耘有限公司 Gewinnen LTD.'
 description: '國耘有限公司提供工程材料批發、工程配管與水處理設備安裝銷售等環境工程整合服務。'
 lang: zh-TW
+timezone: Asia/Taipei
+
+# Languages: zh-TW lives at the site root, en under /en/.
+# Pages that are translations of each other share the same `ref`.
+languages: [zh-TW, en]
+
+markdown: kramdown
+kramdown:
+  input: GFM
+  auto_ids: true
+  hard_wrap: false
+
+sass:
+  style: compressed
+  sourcemap: never
+  silence_deprecations: [import]
 
 plugins:
   - jekyll-feed
+
+feed:
+  path: feed.xml
 
 collections:
   cases:
@@ -12,8 +32,28 @@ collections:
     permalink: /:name/
 
 defaults:
-  - scope:
-      path: ""
-      type: cases
-    values:
-      layout: case
+  - scope: { path: "" }
+    values: { lang: zh-TW }
+  - scope: { path: "", type: pages }
+    values: { layout: page }
+  - scope: { path: "en" }
+    values: { lang: en }
+  - scope: { path: "", type: posts }
+    values: { layout: post, nav: info }
+  - scope: { path: "", type: cases }
+    values: { layout: case, nav: cases }
+
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - README.md
+  - vendor
+  - .bundle
+  - .jekyll-cache
+  # Leftovers from the WordPress export that the site no longer uses.
+  - wp-content/uploads/elementor/css
+  - wp-content/uploads/essential-addons-elementor
+  - wp-content/uploads/seedprod-help-docs
+  - wp-content/uploads/themeisle-gutenberg
+  - wp-content/uploads/wpcode
+  - wp-content/uploads/.htaccess

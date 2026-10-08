@@ -1,4 +1,91 @@
 ---
 layout: default
 ---
-{{ content }}
+{%- include lang.html -%}
+{%- assign cases = site.cases | where: 'lang', lang | sort: 'date' | reverse -%}
+{%- assign cases_page = site.pages | where: 'ref', 'cases' | where: 'lang', lang | first -%}
+
+<article class="case">
+  <header class="page-hero page-hero--case">
+    <div class="container case-hero">
+      <div class="case-hero__text">
+        {% include breadcrumbs.html %}
+        {%- if page.tags.size > 0 %}
+        <ul class="chips">{% for tag in page.tags %}<li>{{ tag }}</li>{% endfor %}</ul>
+        {%- endif %}
+        <h1 class="page-hero__title">{{ page.title }}</h1>
+        <p class="page-hero__lead">{{ page.description }}</p>
+        {%- if page.download %}
+        <a class="btn btn--primary" href="{{ page.download }}" target="_blank" rel="noopener">{% include icon.html name="download" %}{{ t.download }}<span class="visually-hidden"> {{ t.opens_new }}</span></a>
+        {%- endif %}
+      </div>
+      <figure class="case-hero__media">
+        <img src="{{ page.image | relative_url }}" srcset="{{ page.image_srcset }}" sizes="(min-width: 992px) 55vw, 100vw" width="{{ page.image_width }}" height="{{ page.image_height }}" alt="{{ page.image_alt | default: page.title }}" fetchpriority="high" decoding="async">
+      </figure>
+    </div>
+  </header>
+
+  <section class="section section--tight">
+    <div class="container case-body">
+      <div class="case-body__text">
+        <div class="prose prose--lead" data-reveal>{{ content }}</div>
+      </div>
+      {%- if page.features %}
+      <div class="case-body__features">
+        <h2 class="eyebrow case-body__heading" data-reveal>{{ t.features }}</h2>
+        <ol class="feature-list" role="list">
+          {%- for f in page.features %}
+          <li data-reveal><span class="feature-list__num">{{ forloop.index | prepend: '0' | slice: -2, 2 }}</span>{{ f }}</li>
+          {%- endfor %}
+        </ol>
+      </div>
+      {%- endif %}
+    </div>
+  </section>
+
+  {%- if page.industries or page.gallery %}
+  <section class="section section--alt case-industries" aria-labelledby="industries-title">
+    <div class="container">
+      <header class="case-industries__head" data-reveal>
+        <p class="eyebrow">{{ t.industries }}</p>
+        <h2 class="case-industries__title" id="industries-title">{{ page.industries_title }}</h2>
+        {%- if page.industries %}
+        <ul class="chips chips--lg">{% for i in page.industries %}<li>{{ i }}</li>{% endfor %}</ul>
+        {%- endif %}
+      </header>
+      {%- if page.gallery %}
+      <ul class="gallery" role="list" aria-label="{{ t.gallery }}">
+        {%- for g in page.gallery %}
+        <li class="gallery__item" data-reveal>
+          <a class="gallery__link" href="{{ g.full | relative_url }}" data-lightbox>
+            <img src="{{ g.src | relative_url }}"{% if g.srcset %} srcset="{{ g.srcset }}" sizes="(min-width: 992px) 33vw, (min-width: 640px) 50vw, 100vw"{% endif %} width="{{ g.width | default: 768 }}" height="{{ g.height | default: 497 }}" alt="{{ g.alt }}" loading="lazy" decoding="async">
+            <span class="gallery__zoom">{% include icon.html name="expand" %}</span>
+          </a>
+          {%- if g.caption %}<p class="gallery__caption">{{ g.caption }}</p>{% endif %}
+        </li>
+        {%- endfor %}
+      </ul>
+      {%- endif %}
+    </div>
+  </section>
+  {%- endif %}
+
+  <div class="container">
+    <nav class="pager" aria-label="{{ t.back_cases }}">
+      <a class="link-arrow link-arrow--back" href="{{ cases_page.url | relative_url }}">{% include icon.html name="arrow-left" %}{{ t.back_cases }}</a>
+      {%- for c in cases -%}
+        {%- if c.url == page.url -%}
+          {%- unless forloop.last -%}{%- assign next_case = cases[forloop.index] -%}{%- endunless -%}
+        {%- endif -%}
+      {%- endfor -%}
+      {%- if next_case %}
+      <a class="link-arrow pager__next" href="{{ next_case.url | relative_url }}"><span class="pager__label">{{ t.next }}</span>{{ next_case.title }}{% include icon.html name="arrow" %}</a>
+      {%- endif %}
+    </nav>
+  </div>
+</article>
+
+<dialog class="lightbox" data-lightbox-dialog aria-label="{{ t.gallery }}">
+  <button class="lightbox__close" type="button" data-lightbox-close>{% include icon.html name="close" %}<span class="visually-hidden">{{ t.lightbox_close }}</span></button>
+  <img class="lightbox__img" src="data:," alt="">
+</dialog>

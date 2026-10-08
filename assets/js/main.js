@@ -1,96 +1,135 @@
-document.addEventListener('DOMContentLoaded', function () {
+(function () {
+  'use strict';
 
-  // Dropdown triggers ("關於我們", "訊息中心", the language flag) use href="#"
-  // just to be focusable/hoverable — they open a submenu on hover/inert tap,
-  // not a real page. Without this they'd navigate to "#" and leave a stray
-  // "#" in the address bar.
-  document.querySelectorAll('.site-navigation a[href="#"], .site-navigation-dropdown a[href="#"]').forEach(function (a) {
-    a.addEventListener('click', function (e) {
-      e.preventDefault();
-    });
-  });
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var canHover = window.matchMedia('(hover: hover)').matches;
+  var body = document.body;
+  var header = document.querySelector('[data-header]');
+  var menu = document.querySelector('[data-menu]');
+  var toggle = document.querySelector('[data-menu-toggle]');
+  var heroImg = document.querySelector('.hero__media img');
 
-  // Mobile navigation toggle
-  var toggle = document.querySelector('.site-navigation-toggle');
-  var dropdown = document.getElementById('site-navigation-dropdown');
+  // Header: solid once the page scrolls, tucked away while scrolling down,
+  // back as soon as the visitor scrolls up. Also drives a light hero parallax.
+  var lastY = window.scrollY;
+  var ticking = false;
 
-  if (toggle && dropdown) {
+  function onScroll() {
+    var y = window.scrollY;
+    header.classList.toggle('is-scrolled', y > 24);
+    if (!body.classList.contains('menu-open')) {
+      header.classList.toggle('is-hidden', y > lastY && y > 360);
+    }
+    if (heroImg && !reduceMotion && y < window.innerHeight) {
+      heroImg.style.translate = '0 ' + (y * 0.22).toFixed(1) + 'px';
+    }
+    lastY = y;
+    ticking = false;
+  }
+
+  window.addEventListener('scroll', function () {
+    if (!ticking) {
+      window.requestAnimationFrame(onScroll);
+      ticking = true;
+    }
+  }, { passive: true });
+  onScroll();
+
+  // Keyboard users tabbing back into a hidden header should see it.
+  header.addEventListener('focusin', function () { header.classList.remove('is-hidden'); });
+
+  // Mobile menu
+  if (menu && toggle) {
+    var label = toggle.querySelector('[data-label-open]');
+
+    var setMenu = function (open) {
+      menu.classList.toggle('is-open', open);
+      body.classList.toggle('menu-open', open);
+      toggle.setAttribute('aria-expanded', String(open));
+      label.textContent = open ? label.getAttribute('data-label-close') : label.getAttribute('data-label-open');
+      if (open) header.classList.remove('is-hidden');
+    };
+
     toggle.addEventListener('click', function () {
-      var isOpen = toggle.getAttribute('aria-expanded') === 'true';
-      toggle.setAttribute('aria-expanded', String(!isOpen));
-      dropdown.classList.toggle('is-open', !isOpen);
-      if (isOpen) {
-        dropdown.setAttribute('aria-hidden', 'true');
-        dropdown.setAttribute('inert', '');
-      } else {
-        dropdown.removeAttribute('aria-hidden');
-        dropdown.removeAttribute('inert');
+      setMenu(!menu.classList.contains('is-open'));
+    });
+
+    menu.addEventListener('click', function (e) {
+      if (e.target.closest('a')) setMenu(false);
+    });
+
+    document.addEventListener('keydown', function (e) {
+      if (!menu.classList.contains('is-open')) return;
+      if (e.key === 'Escape') {
+        setMenu(false);
+        toggle.focus();
+        return;
+      }
+      // Keep focus inside the toggle + menu while it is open.
+      if (e.key === 'Tab') {
+        var focusables = [toggle].concat(Array.prototype.slice.call(menu.querySelectorAll('a')));
+        var first = focusables[0];
+        var last = focusables[focusables.length - 1];
+        if (e.shiftKey && document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        } else if (!e.shiftKey && document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
+        }
       }
     });
-  }
 
-  // FAQ / accordion widgets
-  function closeAccordionItem(title) {
-    var content = document.getElementById(title.getAttribute('aria-controls'));
-    title.classList.remove('elementor-active');
-    title.setAttribute('aria-expanded', 'false');
-    if (content) {
-      content.style.maxHeight = content.scrollHeight + 'px';
-      requestAnimationFrame(function () {
-        content.classList.remove('is-open');
-        content.style.maxHeight = '0px';
-      });
-    }
-  }
-
-  function openAccordionItem(title) {
-    var content = document.getElementById(title.getAttribute('aria-controls'));
-    title.classList.add('elementor-active');
-    title.setAttribute('aria-expanded', 'true');
-    if (content) {
-      content.classList.add('is-open');
-      content.style.maxHeight = content.scrollHeight + 'px';
-      content.addEventListener('transitionend', function onEnd(e) {
-        if (e.propertyName !== 'max-height') return;
-        content.style.maxHeight = 'none';
-        content.removeEventListener('transitionend', onEnd);
-      });
-    }
-  }
-
-  document.querySelectorAll('.elementor-accordion').forEach(function (accordion) {
-    var titles = accordion.querySelectorAll('.elementor-tab-title');
-    titles.forEach(function (title) {
-      title.addEventListener('click', function () {
-        var isActive = title.classList.contains('elementor-active');
-
-        titles.forEach(function (other) {
-          if (other.classList.contains('elementor-active')) closeAccordionItem(other);
-        });
-
-        if (!isActive) openAccordionItem(title);
-      });
+    window.matchMedia('(min-width: 62em)').addEventListener('change', function (e) {
+      if (e.matches) setMenu(false);
     });
-  });
+  }
 
-  // Elementor entrance animations (fadeIn, fadeInLeft, ...)
-  var animated = document.querySelectorAll('.elementor-invisible[data-settings]');
-  if ('IntersectionObserver' in window && animated.length) {
-    var observer = new IntersectionObserver(function (entries, obs) {
+  // Scroll reveal, staggered for elements entering together.
+  var revealables = document.querySelectorAll('[data-reveal]');
+  if ('IntersectionObserver' in window && !reduceMotion) {
+    var observer = new IntersectionObserver(function (entries) {
+      var n = 0;
       entries.forEach(function (entry) {
         if (!entry.isIntersecting) return;
-        var el = entry.target;
-        var settings = {};
-        try { settings = JSON.parse(el.getAttribute('data-settings')); } catch (e) {}
-        var animation = settings._animation;
-        el.classList.remove('elementor-invisible');
-        if (animation) el.classList.add('animated', animation);
-        obs.unobserve(el);
+        entry.target.style.setProperty('--reveal-delay', Math.min(n++, 5) * 90 + 'ms');
+        entry.target.classList.add('is-in');
+        observer.unobserve(entry.target);
       });
-    }, { rootMargin: '0px 0px -50px 0px', threshold: 0.1 });
-
-    animated.forEach(function (el) { observer.observe(el); });
+    }, { rootMargin: '0px 0px -6% 0px', threshold: 0.06 });
+    revealables.forEach(function (el) { observer.observe(el); });
   } else {
-    animated.forEach(function (el) { el.classList.remove('elementor-invisible'); });
+    revealables.forEach(function (el) { el.classList.add('is-in'); });
   }
-});
+
+  // Magnetic call-to-action button.
+  if (canHover && !reduceMotion) {
+    document.querySelectorAll('.cta__button').forEach(function (btn) {
+      btn.addEventListener('pointermove', function (e) {
+        var r = btn.getBoundingClientRect();
+        var x = (e.clientX - r.left - r.width / 2) * 0.25;
+        var y = (e.clientY - r.top - r.height / 2) * 0.25;
+        btn.style.translate = x.toFixed(1) + 'px ' + y.toFixed(1) + 'px';
+      });
+      btn.addEventListener('pointerleave', function () { btn.style.translate = ''; });
+    });
+  }
+
+  // Gallery lightbox (native <dialog>; links still work without it).
+  var dialog = document.querySelector('[data-lightbox-dialog]');
+  if (dialog && typeof dialog.showModal === 'function') {
+    var img = dialog.querySelector('img');
+    document.querySelectorAll('[data-lightbox]').forEach(function (link) {
+      link.addEventListener('click', function (e) {
+        e.preventDefault();
+        var thumb = link.querySelector('img');
+        img.src = link.href;
+        img.alt = thumb ? thumb.alt : '';
+        dialog.showModal();
+      });
+    });
+    dialog.addEventListener('click', function (e) {
+      if (e.target === dialog || e.target.closest('[data-lightbox-close]')) dialog.close();
+    });
+  }
+})();

@@ -1,0 +1,26 @@
+---
+layout: null
+permalink: /sitemap.xml
+sitemap: false
+---
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+{%- assign all_docs = site.pages | concat: site.posts | concat: site.cases -%}
+{%- for d in all_docs -%}
+  {%- unless d.title and d.ref -%}{%- continue -%}{%- endunless -%}
+  {%- if d.sitemap == false or d.noindex -%}{%- continue -%}{%- endif %}
+  <url>
+    <loc>{{ d.url | absolute_url }}</loc>
+    {%- if d.last_modified_at or d.date %}
+    <lastmod>{{ d.last_modified_at | default: d.date | date_to_xmlschema }}</lastmod>
+    {%- endif %}
+    {%- assign alts = all_docs | where: 'ref', d.ref -%}
+    {%- for a in alts %}
+    <xhtml:link rel="alternate" hreflang="{{ site.data.i18n[a.lang].hreflang }}" href="{{ a.url | absolute_url }}"/>
+    {%- if a.lang == site.lang %}
+    <xhtml:link rel="alternate" hreflang="x-default" href="{{ a.url | absolute_url }}"/>
+    {%- endif -%}
+    {%- endfor %}
+  </url>
+{%- endfor %}
+</urlset>

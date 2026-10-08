@@ -1,4 +1,36 @@
 ---
 layout: default
 ---
-{{ content }}
+{%- include lang.html -%}
+{%- assign posts = site.posts | where: 'lang', lang -%}
+{%- assign news_page = site.pages | where: 'ref', 'news' | where: 'lang', lang | first -%}
+<article class="post">
+  <header class="page-hero page-hero--post">
+    <div class="container page-hero__inner">
+      {% include breadcrumbs.html %}
+      <p class="eyebrow page-hero__eyebrow"><time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: '%Y.%m.%d' }}</time></p>
+      <h1 class="page-hero__title">{{ page.title }}</h1>
+      {%- if page.description %}
+      <p class="page-hero__lead">{{ page.description }}</p>
+      {%- endif %}
+    </div>
+  </header>
+  <div class="section section--tight">
+    <div class="container">
+      <div class="prose prose--page" data-reveal>{{ content }}</div>
+    </div>
+  </div>
+  <div class="container">
+    <nav class="pager" aria-label="{{ t.back_news }}">
+      <a class="link-arrow link-arrow--back" href="{{ news_page.url | relative_url }}">{% include icon.html name="arrow-left" %}{{ t.back_news }}</a>
+      {%- for p in posts -%}
+        {%- if p.url == page.url -%}
+          {%- unless forloop.last -%}{%- assign older = posts[forloop.index] -%}{%- endunless -%}
+        {%- endif -%}
+      {%- endfor -%}
+      {%- if older %}
+      <a class="link-arrow pager__next" href="{{ older.url | relative_url }}"><span class="pager__label">{{ t.next }}</span>{{ older.title }}{% include icon.html name="arrow" %}</a>
+      {%- endif %}
+    </nav>
+  </div>
+</article>

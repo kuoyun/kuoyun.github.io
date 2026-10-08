@@ -1,7 +1,22 @@
 ---
+layout: default
 permalink: /404.html
-layout: page
-title: 找不到符合條件的頁面
-heading: 很抱歉，找不到符合條件的頁面。
+title: 找不到頁面 Page not found
+noindex: true
+hide_cta: true
+sitemap: false
 ---
-<p>在這裡找不到符合條件的頁面。</p>
+<section class="not-found">
+  <div class="container not-found__inner">
+    <p class="not-found__code" aria-hidden="true">404</p>
+    <div class="not-found__text">
+      <h1 class="not-found__title">找不到頁面</h1>
+      <p>您要找的頁面可能已移除、更名，或暫時無法使用。</p>
+      <p lang="en">The page you're looking for may have moved or no longer exists.</p>
+      <div class="not-found__actions">
+        <a class="btn btn--primary" href="{{ '/' | relative_url }}">回到首頁</a>
+        <a class="btn btn--outline" href="{{ '/en/' | relative_url }}" lang="en">English home</a>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,16 @@
+{%- assign list = include.posts -%}
+{%- if list.size > 0 -%}
+<ol class="post-list" role="list">
+  {%- for p in list limit: include.limit %}
+  <li class="post-list__item" data-reveal>
+    <a class="post-list__link" href="{{ p.url | relative_url }}">
+      <time class="post-list__date" datetime="{{ p.date | date: '%Y-%m-%d' }}">{{ p.date | date: '%Y.%m.%d' }}</time>
+      <span class="post-list__title">{{ p.title }}</span>
+      <span class="post-list__arrow">{% include icon.html name="arrow" %}</span>
+    </a>
+  </li>
+  {%- endfor %}
+</ol>
+{%- else -%}
+<p class="muted">{{ t.no_posts }}</p>
+{%- endif -%}

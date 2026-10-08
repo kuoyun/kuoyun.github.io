@@ -1,0 +1,56 @@
+---
+layout: default
+---
+{%- include lang.html -%}
+{%- assign addr = company.address[lang] -%}
+{%- capture map_link -%}https://www.google.com/maps/search/?api=1&amp;query={{ company.map_query | url_encode }}{%- endcapture -%}
+{% include page-hero.html %}
+<section class="section section--tight">
+  <div class="container contact">
+    <div class="contact__info">
+      {%- assign body_text = content | strip -%}
+    {%- if body_text != '' %}
+      <div class="prose prose--lead" data-reveal>{{ content }}</div>
+      {%- endif %}
+      <ul class="contact-list" role="list">
+        <li data-reveal>
+          <a class="contact-list__link" href="tel:{{ company.phone }}">
+            <span class="contact-list__icon">{% include icon.html name="phone" %}</span>
+            <span class="contact-list__label">{{ t.phone }}</span>
+            <span class="contact-list__value">{{ company.phone_display }}</span>
+            {% include icon.html name="arrow-up-right" class="contact-list__go" %}
+          </a>
+        </li>
+        <li data-reveal>
+          <a class="contact-list__link" href="mailto:{{ company.email }}">
+            <span class="contact-list__icon">{% include icon.html name="mail" %}</span>
+            <span class="contact-list__label">{{ t.email }}</span>
+            <span class="contact-list__value">{{ company.email }}</span>
+            {% include icon.html name="arrow-up-right" class="contact-list__go" %}
+          </a>
+        </li>
+        {%- if company.email_alt %}
+        <li data-reveal>
+          <a class="contact-list__link" href="mailto:{{ company.email_alt }}">
+            <span class="contact-list__icon">{% include icon.html name="mail" %}</span>
+            <span class="contact-list__label">{{ t.email }} 2</span>
+            <span class="contact-list__value">{{ company.email_alt }}</span>
+            {% include icon.html name="arrow-up-right" class="contact-list__go" %}
+          </a>
+        </li>
+        {%- endif %}
+        <li data-reveal>
+          <a class="contact-list__link" href="{{ map_link }}" target="_blank" rel="noopener">
+            <span class="contact-list__icon">{% include icon.html name="pin" %}</span>
+            <span class="contact-list__label">{{ t.address }}</span>
+            <span class="contact-list__value">{{ addr.full }}<span class="visually-hidden"> {{ t.opens_new }}</span></span>
+            {% include icon.html name="arrow-up-right" class="contact-list__go" %}
+          </a>
+        </li>
+      </ul>
+    </div>
+    <div class="contact__map" data-reveal>
+      <iframe src="https://maps.google.com/maps?q={{ company.map_query | url_encode }}&amp;t=m&amp;z=16&amp;output=embed&amp;hl={% if lang == 'en' %}en{% else %}zh-TW{% endif %}" title="{{ t.map_title }}" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+    </div>
+  </div>
+</section>

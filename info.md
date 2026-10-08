@@ -1,12 +1,11 @@
 ---
-id: 108
+layout: hub
 title: 訊息中心
-date: '2024-08-26T18:56:20+08:00'
-author: chnly70
-excerpt: ''
-layout: page
-guid: 'https://www.kuoyun.com.tw/?page_id=108'
+ref: info
+nav: info
 permalink: /info/
+eyebrow: Insights
+description: 國耘訊息中心——常見問題與最新消息，掌握我們的服務內容與最新動態。
 ---
 
-
+想更了解國耘的服務內容與最新動態？從常見問題與最新消息開始。

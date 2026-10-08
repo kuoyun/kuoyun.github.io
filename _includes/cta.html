@@ -1,0 +1,12 @@
+<section class="cta" aria-labelledby="cta-title">
+  <div class="container cta__inner">
+    <p class="eyebrow eyebrow--light" data-reveal>{{ t.contact }}</p>
+    <h2 class="cta__title" id="cta-title" data-reveal>{{ t.cta_title }}</h2>
+    <div class="cta__row" data-reveal>
+      <p class="cta__body">{{ t.cta_body }}</p>
+      <a class="cta__button" href="{{ t.contact_url | relative_url }}">
+        <span>{{ t.contact_cta }}</span>{% include icon.html name="arrow-up-right" %}
+      </a>
+    </div>
+  </div>
+</section>

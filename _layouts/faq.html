@@ -1,0 +1,31 @@
+---
+layout: default
+---
+{%- include lang.html -%}
+{% include page-hero.html %}
+<section class="section section--tight">
+  <div class="container faq">
+    <div class="faq__list">
+      {%- assign body_text = content | strip -%}
+    {%- if body_text != '' %}
+      <div class="prose" data-reveal>{{ content }}</div>
+      {%- endif %}
+      {%- for f in page.faqs %}
+      <details class="faq__item" data-reveal{% if forloop.first %} open{% endif %}>
+        <summary class="faq__q">
+          <span class="faq__num">Q{{ forloop.index | prepend: '0' | slice: -2, 2 }}</span>
+          <span class="faq__text">{{ f.q }}</span>
+          <span class="faq__icon" aria-hidden="true">{% include icon.html name="plus" %}</span>
+        </summary>
+        <div class="faq__a prose">{{ f.a | markdownify }}</div>
+      </details>
+      {%- endfor %}
+    </div>
+    <aside class="faq__aside" data-reveal>
+      <h2 class="faq__aside-title">{{ t.faq_more }}</h2>
+      <p>{{ t.faq_more_body }}</p>
+      <a class="btn btn--primary" href="{{ t.contact_url | relative_url }}">{{ t.contact_cta }}{% include icon.html name="arrow" %}</a>
+      <a class="faq__aside-phone" href="tel:{{ company.phone }}">{% include icon.html name="phone" %}{{ company.phone_display }}</a>
+    </aside>
+  </div>
+</section>

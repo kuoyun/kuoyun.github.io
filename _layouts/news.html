@@ -1,0 +1,15 @@
+---
+layout: default
+---
+{%- include lang.html -%}
+{%- assign posts = site.posts | where: 'lang', lang -%}
+{% include page-hero.html %}
+<section class="section section--tight">
+  <div class="container">
+    {%- assign body_text = content | strip -%}
+    {%- if body_text != '' %}
+    <div class="prose" data-reveal>{{ content }}</div>
+    {%- endif %}
+    {% include post-list.html posts=posts %}
+  </div>
+</section>

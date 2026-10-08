@@ -1,0 +1,7 @@
+<header class="section-head{% if include.modifier %} section-head--{{ include.modifier }}{% endif %}" data-reveal>
+  <p class="section-head__meta"><span class="section-head__index">{{ include.index }}</span><span class="eyebrow">{{ include.label }}</span></p>
+  <h2 class="section-head__title"{% if include.id %} id="{{ include.id }}"{% endif %}>{{ include.title }}</h2>
+  {%- if include.link_url %}
+  <a class="link-arrow section-head__link" href="{{ include.link_url | relative_url }}">{{ include.link_label }}{% include icon.html name="arrow" %}</a>
+  {%- endif %}
+</header>

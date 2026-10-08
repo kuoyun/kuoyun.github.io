@@ -1,0 +1,44 @@
+{%- comment -%}
+  Trail is derived from the navigation data: home → nav item → child page.
+  Case studies hang under the "cases" item; posts under the info item's
+  last child (the news listing).
+{%- endcomment -%}
+{%- assign home = nav | first -%}
+{%- capture crumbs -%}{{ home.title }}|{{ home.url }}{%- endcapture -%}
+{%- for item in nav -%}
+  {%- if item.key == 'home' -%}{%- continue -%}{%- endif -%}
+  {%- if item.url == page.url -%}
+    {%- capture crumbs -%}{{ crumbs }};;{{ item.title }}|{{ item.url }}{%- endcapture -%}
+  {%- endif -%}
+  {%- for c in item.children -%}
+    {%- if c.url == page.url -%}
+      {%- capture crumbs -%}{{ crumbs }};;{{ item.title }}|{{ item.url }};;{{ c.title }}|{{ c.url }}{%- endcapture -%}
+    {%- endif -%}
+  {%- endfor -%}
+  {%- if page.collection == 'cases' and item.key == 'cases' -%}
+    {%- capture crumbs -%}{{ crumbs }};;{{ item.title }}|{{ item.url }};;{{ page.title }}|{{ page.url }}{%- endcapture -%}
+  {%- endif -%}
+  {%- if page.collection == 'posts' and item.key == 'info' -%}
+    {%- assign news = item.children | last -%}
+    {%- capture crumbs -%}{{ crumbs }};;{{ item.title }}|{{ item.url }};;{{ news.title }}|{{ news.url }};;{{ page.title }}|{{ page.url }}{%- endcapture -%}
+  {%- endif -%}
+{%- endfor -%}
+{%- assign crumbs = crumbs | split: ';;' -%}
+{%- if crumbs.size > 1 -%}
+<nav class="breadcrumbs" aria-label="{{ t.breadcrumb }}">
+  <ol>
+    {%- for c in crumbs -%}
+    {%- assign parts = c | split: '|' %}
+    <li>{% if forloop.last %}<span aria-current="page">{{ parts[0] }}</span>{% else %}<a href="{{ parts[1] | relative_url }}">{{ parts[0] }}</a>{% endif %}</li>
+    {%- endfor %}
+  </ol>
+</nav>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[
+{%- for c in crumbs -%}
+{%- assign parts = c | split: '|' -%}
+{"@type":"ListItem","position":{{ forloop.index }},"name":{{ parts[0] | jsonify }},"item":"{{ parts[1] | absolute_url }}"}{%- unless forloop.last -%},{%- endunless -%}
+{%- endfor -%}
+]}
+</script>
+{%- endif -%}

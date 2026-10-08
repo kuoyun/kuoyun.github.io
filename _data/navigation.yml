@@ -1,20 +1,35 @@
-- title: 首頁
-  url: /
-- title: 工程實績
-  url: /cases/
-- title: 產品服務
-  url: /services/
-- title: 關於我們
-  url: /about-us/
-  children:
-    - title: 團隊願景
-      url: /team-vision/
-    - title: 聯絡我們
-      url: /contact-us/
-- title: 訊息中心
-  url: /info/
-  children:
-    - title: 常見問題
-      url: /faq/
-    - title: 最新消息
-      url: /news/
+# `key` matches the `nav` value in each page's front matter, which keeps the
+# right item highlighted on child pages (case studies, news posts).
+zh-TW:
+  - { key: home, title: 首頁, url: / }
+  - { key: cases, title: 工程實績, url: /cases/ }
+  - { key: services, title: 產品服務, url: /services/ }
+  - key: about
+    title: 關於我們
+    url: /about-us/
+    children:
+      - { title: 團隊願景, url: /team-vision/ }
+      - { title: 聯絡我們, url: /contact-us/ }
+  - key: info
+    title: 訊息中心
+    url: /info/
+    children:
+      - { title: 常見問題, url: /faq/ }
+      - { title: 最新消息, url: /news/ }
+
+en:
+  - { key: home, title: Home, url: /en/ }
+  - { key: cases, title: Projects, url: /en/cases/ }
+  - { key: services, title: Services, url: /en/services/ }
+  - key: about
+    title: About
+    url: /en/about-us/
+    children:
+      - { title: Our Vision, url: /en/team-vision/ }
+      - { title: Contact, url: /en/contact-us/ }
+  - key: info
+    title: Insights
+    url: /en/info/
+    children:
+      - { title: FAQ, url: /en/faq/ }
+      - { title: News, url: /en/news/ }

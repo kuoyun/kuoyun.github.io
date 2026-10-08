@@ -1,4 +1,12 @@
 ---
 layout: default
 ---
-{{ content }}
+{%- include lang.html -%}
+{% include page-hero.html %}
+<section class="section section--tight">
+  <div class="container">
+    <div class="prose prose--page" data-reveal>
+      {{ content }}
+    </div>
+  </div>
+</section>

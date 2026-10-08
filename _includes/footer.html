@@ -1,14 +1,44 @@
-<footer id="site-footer" class="site-footer dynamic-footer footer-stacked footer-has-copyright">
-    <div class="footer-inner">
-        <div class="site-branding show-logo">
-            <div class="site-logo hide">
-                <a href="{{ '/' | relative_url }}" class="custom-logo-link" rel="home"><img
-                        src="{{ '/wp-content/uploads/2024/07/Header_logo.png' | relative_url }}" width="419"
-                        height="101" class="custom-logo" alt="{{ site.name }}" /></a>
-            </div>
-        </div>
-        <div class="copyright show">
-            <p>&copy; 2024 GEWINNEN LTD. All rights reserved.</p>
-        </div>
+{%- assign addr = company.address[lang] -%}
+<footer class="site-footer">
+  <div class="container">
+    <div class="site-footer__grid">
+      <div class="site-footer__brand">
+        <a href="{{ t.home_url | relative_url }}" class="site-footer__logo" aria-label="{{ t.site_title }}">
+          <img src="{{ company.logo_light | relative_url }}" width="419" height="101" alt="{{ t.site_title }}" loading="lazy">
+        </a>
+        <p class="site-footer__tagline">{{ t.description }}</p>
+      </div>
+
+      <nav class="site-footer__col" aria-label="{{ t.sitemap }}">
+        <h2 class="site-footer__title">{{ t.sitemap }}</h2>
+        <ul class="site-footer__links">
+          {%- for item in nav %}
+          <li><a href="{{ item.url | relative_url }}">{{ item.title }}</a></li>
+          {%- for c in item.children %}
+          <li><a href="{{ c.url | relative_url }}">{{ c.title }}</a></li>
+          {%- endfor -%}
+          {%- endfor %}
+        </ul>
+      </nav>
+
+      <div class="site-footer__col">
+        <h2 class="site-footer__title">{{ t.follow }}</h2>
+        <address class="site-footer__contact">
+          <a href="tel:{{ company.phone }}"><span class="site-footer__label">{{ t.phone }}</span>{{ company.phone_display }}</a>
+          <a href="mailto:{{ company.email }}"><span class="site-footer__label">{{ t.email }}</span>{{ company.email }}</a>
+          <a href="https://www.google.com/maps/search/?api=1&amp;query={{ company.map_query | url_encode }}" target="_blank" rel="noopener"><span class="site-footer__label">{{ t.address }}</span>{{ addr.full }}<span class="visually-hidden"> {{ t.opens_new }}</span></a>
+        </address>
+      </div>
     </div>
+
+    <p class="site-footer__wordmark" aria-hidden="true">GEWINNEN</p>
+
+    <div class="site-footer__bottom">
+      <p>&copy; {{ site.time | date: '%Y' }} {{ company.legal_name }} {{ company.brand }} {{ t.rights }}</p>
+      <div class="site-footer__bottom-links">
+        <a href="{{ alt_url | relative_url }}" hreflang="{{ alt_t.hreflang }}" lang="{{ alt_t.html_lang }}">{% include icon.html name="globe" %}{{ alt_t.label }}</a>
+        <a href="#top" class="site-footer__top" data-to-top>{{ t.back_top }}{% include icon.html name="arrow-up" %}</a>
+      </div>
+    </div>
+  </div>
 </footer>

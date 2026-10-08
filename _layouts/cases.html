@@ -1,0 +1,19 @@
+---
+layout: default
+---
+{%- include lang.html -%}
+{%- assign cases = site.cases | where: 'lang', lang | sort: 'date' | reverse -%}
+{% include page-hero.html %}
+<section class="section section--tight">
+  <div class="container">
+    {%- assign body_text = content | strip -%}
+    {%- if body_text != '' %}
+    <div class="prose" data-reveal>{{ content }}</div>
+    {%- endif %}
+    <div class="case-grid">
+      {%- for c in cases %}
+      {% include case-card.html case=c feature=forloop.first %}
+      {%- endfor %}
+    </div>
+  </div>
+</section>

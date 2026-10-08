@@ -1,0 +1,198 @@
+// Closing call-to-action band and site footer.
+
+.cta {
+  position: relative;
+  padding-block: var(--section);
+  background: var(--ink);
+  color: var(--on-ink);
+  overflow: hidden;
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0 0 auto;
+    height: 4px;
+    background: var(--stripe);
+  }
+
+  &__title {
+    max-width: 20ch;
+    margin-top: 1.5rem;
+    color: var(--on-ink);
+    font-size: var(--fs-3xl);
+    font-weight: 800;
+    line-height: 1.18;
+    font-stretch: 105%;
+  }
+
+  &__row {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2.5rem;
+    margin-top: clamp(2rem, 1rem + 4vw, 4rem);
+
+    @media (min-width: 48em) {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+    }
+  }
+
+  &__body {
+    max-width: 30rem;
+    color: var(--on-ink-muted);
+    font-size: var(--fs-lg);
+  }
+
+  &__button {
+    --size: clamp(8.5rem, 6rem + 8vw, 12.5rem);
+
+    flex: none;
+    display: grid;
+    place-content: center;
+    justify-items: center;
+    gap: .5rem;
+    width: var(--size);
+    height: var(--size);
+    padding: 1rem;
+    border-radius: 50%;
+    background: var(--blue);
+    color: #fff;
+    font-weight: 700;
+    line-height: 1.3;
+    text-align: center;
+    transition: background-color .5s var(--ease), transform .6s var(--ease), translate .4s var(--ease);
+
+    .icon { font-size: 1.5rem; transition: transform .5s var(--ease); }
+
+    &:hover { background: var(--green); transform: scale(1.06); }
+    &:hover .icon { transform: translate(.2rem, -.2rem); }
+  }
+}
+
+html:lang(en) .cta__title { letter-spacing: -.015em; }
+
+.site-footer {
+  overflow: hidden;
+  padding-top: clamp(3.5rem, 2rem + 4vw, 6rem);
+  border-top: 1px solid var(--line-light);
+  background: var(--ink);
+  color: var(--on-ink-muted);
+  font-size: var(--fs-sm);
+
+  &__grid {
+    display: grid;
+    gap: 2.75rem;
+
+    @media (min-width: 40em) {
+      grid-template-columns: 1fr 1fr;
+      .site-footer__brand { grid-column: 1 / -1; }
+    }
+
+    @media (min-width: 62em) {
+      grid-template-columns: 1.5fr 1fr 1.2fr;
+      gap: 4rem;
+      .site-footer__brand { grid-column: auto; }
+    }
+  }
+
+  &__logo img { width: auto; height: 2.75rem; }
+
+  &__tagline {
+    max-width: 26rem;
+    margin-top: 1.25rem;
+    line-height: 1.8;
+  }
+
+  &__title {
+    margin-bottom: 1rem;
+    color: var(--on-ink);
+    font-size: var(--fs-xs);
+    font-weight: 600;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+  }
+
+  &__links {
+    columns: 2;
+    column-gap: 1.5rem;
+    list-style: none;
+
+    a {
+      display: inline-block;
+      padding-block: .3125rem;
+      transition: color .2s;
+      &:hover { color: var(--on-ink); }
+    }
+  }
+
+  &__contact {
+    display: grid;
+    gap: 1.125rem;
+
+    a {
+      display: grid;
+      gap: .125rem;
+      color: var(--on-ink);
+      line-height: 1.6;
+      overflow-wrap: anywhere;
+      transition: color .2s;
+      &:hover { color: var(--blue); }
+    }
+  }
+
+  &__label {
+    color: var(--on-ink-muted);
+    font-size: var(--fs-xs);
+    letter-spacing: .08em;
+  }
+
+  // Giant brand wordmark fading into the page bottom
+  &__wordmark {
+    margin-top: clamp(3rem, 2rem + 4vw, 6rem);
+    background: linear-gradient(180deg, rgb(242 239 232 / .16), rgb(242 239 232 / 0) 88%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    // The word is ~7.15em wide at this weight/width: fill the container exactly.
+    font-size: min(calc((100vw - 2 * var(--gutter)) / 7.3), calc(var(--max) / 7.3));
+    font-weight: 800;
+    font-stretch: 125%;
+    line-height: .82;
+    letter-spacing: -.02em;
+    text-align: center;
+    white-space: nowrap;
+    user-select: none;
+  }
+
+  &__bottom {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding-block: 1.5rem calc(1.5rem + env(safe-area-inset-bottom));
+    border-top: 1px solid var(--line-light);
+
+    @media (min-width: 48em) {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+    }
+  }
+
+  &__bottom-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .5rem 1.75rem;
+
+    a {
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      min-height: 2.75rem;
+      color: var(--on-ink);
+      transition: color .2s;
+      &:hover { color: var(--blue); }
+    }
+  }
+}

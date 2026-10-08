@@ -1,0 +1,6 @@
+<a class="lang-switch" href="{{ alt_url | relative_url }}" hreflang="{{ alt_t.hreflang }}" lang="{{ alt_t.html_lang }}" title="{{ t.switch_lang }}">
+  <span class="lang-switch__opt{% if lang == 'zh-TW' %} is-current{% endif %}" aria-hidden="true">中</span>
+  <span class="lang-switch__sep" aria-hidden="true"></span>
+  <span class="lang-switch__opt{% if lang == 'en' %} is-current{% endif %}" aria-hidden="true">EN</span>
+  <span class="visually-hidden">{{ t.switch_lang }}</span>
+</a>

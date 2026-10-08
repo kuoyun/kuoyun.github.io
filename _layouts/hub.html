@@ -1,0 +1,29 @@
+---
+layout: default
+---
+{%- comment -%} Section landing page: lists the child pages of this nav item. {%- endcomment -%}
+{%- include lang.html -%}
+{%- assign item = nav | where: 'key', page.nav | first -%}
+{% include page-hero.html %}
+<section class="section section--tight">
+  <div class="container">
+    {%- assign body_text = content | strip -%}
+    {%- if body_text != '' %}
+    <div class="prose prose--lead hub__intro" data-reveal>{{ content }}</div>
+    {%- endif %}
+    <ol class="hub-cards" role="list">
+      {%- for c in item.children %}
+      {%- assign child = site.pages | where: 'url', c.url | first %}
+      <li data-reveal>
+        <a class="hub-card" href="{{ c.url | relative_url }}">
+          <span class="hub-card__num">0{{ forloop.index }}</span>
+          {%- if child.eyebrow %}<span class="eyebrow">{{ child.eyebrow }}</span>{% endif %}
+          <h2 class="hub-card__title">{{ c.title }}</h2>
+          <p class="hub-card__text">{{ child.description }}</p>
+          <span class="hub-card__go">{% include icon.html name="arrow-up-right" %}</span>
+        </a>
+      </li>
+      {%- endfor %}
+    </ol>
+  </div>
+</section>

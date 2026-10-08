@@ -1,0 +1,66 @@
+{%- assign addr = company.address[lang] -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": ["Organization", "LocalBusiness"],
+      "@id": "{{ '/#organization' | absolute_url }}",
+      "name": {{ company.legal_name | jsonify }},
+      "alternateName": {{ company.brand | jsonify }},
+      "url": "{{ '/' | absolute_url }}",
+      "logo": "{{ company.logo_square | absolute_url }}",
+      "image": "{{ company.og_image | absolute_url }}",
+      "description": {{ t.description | jsonify }},
+      "telephone": "{{ company.phone }}",
+      "email": "{{ company.email }}",
+      "foundingDate": "{{ company.founded }}",
+      "areaServed": "TW",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": {{ addr.street | jsonify }},
+        "addressLocality": {{ addr.locality | jsonify }},
+        "addressRegion": {{ addr.region | jsonify }},
+        "postalCode": "{{ company.postal_code }}",
+        "addressCountry": "{{ company.country }}"
+      }
+    },
+    {
+      "@type": "WebSite",
+      "@id": "{{ t.home_url | absolute_url }}#website",
+      "url": "{{ t.home_url | absolute_url }}",
+      "name": {{ t.site_title | jsonify }},
+      "inLanguage": "{{ t.hreflang }}",
+      "publisher": { "@id": "{{ '/#organization' | absolute_url }}" }
+    }
+    {%- if page.collection == 'posts' or page.collection == 'cases' -%},
+    {
+      "@type": "Article",
+      "headline": {{ page.title | jsonify }},
+      "description": {{ seo_desc | jsonify }},
+      "image": "{{ seo_image }}",
+      "datePublished": "{{ page.date | date_to_xmlschema }}",
+      "dateModified": "{{ page.last_modified_at | default: page.date | date_to_xmlschema }}",
+      "inLanguage": "{{ t.hreflang }}",
+      "mainEntityOfPage": "{{ canonical }}",
+      "author": { "@id": "{{ '/#organization' | absolute_url }}" },
+      "publisher": { "@id": "{{ '/#organization' | absolute_url }}" }
+    }
+    {%- endif -%}
+    {%- if page.faqs -%},
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {%- for f in page.faqs -%}
+        {
+          "@type": "Question",
+          "name": {{ f.q | jsonify }},
+          "acceptedAnswer": { "@type": "Answer", "text": {{ f.a | markdownify | strip_html | normalize_whitespace | strip | jsonify }} }
+        }{%- unless forloop.last -%},{%- endunless -%}
+        {%- endfor -%}
+      ]
+    }
+    {%- endif %}
+  ]
+}
+</script>

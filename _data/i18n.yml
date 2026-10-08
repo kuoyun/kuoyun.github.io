@@ -1,0 +1,103 @@
+zh-TW:
+  html_lang: zh-Hant-TW
+  hreflang: zh-Hant-TW
+  locale: zh_TW
+  label: 中文
+  short: 中
+  home_url: /
+  contact_url: /contact-us/
+  site_title: 國耘有限公司 Gewinnen LTD.
+  tagline: 環境工程整合服務
+  description: 國耘有限公司提供工程材料批發、工程配管與水處理設備安裝銷售等環境工程整合服務，以創新環保材料守護地球家園。
+  skip: 跳至主要內容
+  menu: 選單
+  close: 關閉選單
+  primary_nav: 主要選單
+  switch_lang: Switch to English
+  breadcrumb: 麵包屑導覽
+  read_more: 查看更多
+  view_all: 查看全部
+  view_case: 查看案例
+  contact_cta: 立即洽詢
+  contact: 聯絡我們
+  phone: 電話
+  email: 信箱
+  address: 地址
+  directions: 開啟 Google 地圖
+  sitemap: 網站導覽
+  follow: 聯絡資訊
+  back_top: 回到頂端
+  rights: 版權所有
+  published: 發佈於
+  back_news: 回到最新消息
+  back_cases: 回到工程實績
+  features: 產品特色
+  industries: 適用產業
+  gallery: 應用場景
+  download: 下載型錄
+  prev: 上一則
+  next: 下一則
+  no_posts: 目前尚無文章。
+  faq_more: 找不到您要的答案？
+  faq_more_body: 歡迎直接與我們聯繫，專人將盡快為您說明。
+  scroll: 向下捲動
+  map_title: 國耘有限公司地圖位置
+  cta_title: 讓我們以專業能力，<br>共同守護地球家園。
+  cta_body: 不論是材料採購、配管工程或水處理設備，歡迎與我們聊聊您的需求。
+  not_found: 找不到頁面
+  not_found_body: 您要找的頁面可能已移除、更名，或暫時無法使用。
+  go_home: 回到首頁
+  lightbox_close: 關閉圖片
+  opens_new: （另開新視窗）
+
+en:
+  html_lang: en
+  hreflang: en
+  locale: en_US
+  label: English
+  short: EN
+  home_url: /en/
+  contact_url: /en/contact-us/
+  site_title: Gewinnen Ltd. 國耘有限公司
+  tagline: Integrated Environmental Engineering
+  description: Gewinnen Ltd. delivers integrated environmental engineering in Taiwan — engineering materials supply, industrial piping, and water treatment systems built on sustainable materials.
+  skip: Skip to content
+  menu: Menu
+  close: Close menu
+  primary_nav: Main navigation
+  switch_lang: 切換至中文
+  breadcrumb: Breadcrumb
+  read_more: Read more
+  view_all: View all
+  view_case: View project
+  contact_cta: Get in touch
+  contact: Contact
+  phone: Phone
+  email: Email
+  address: Address
+  directions: Open in Google Maps
+  sitemap: Sitemap
+  follow: Contact
+  back_top: Back to top
+  rights: All rights reserved.
+  published: Published
+  back_news: Back to news
+  back_cases: Back to projects
+  features: Key features
+  industries: Industries
+  gallery: In use
+  download: Download brochure
+  prev: Previous
+  next: Next
+  no_posts: No posts yet.
+  faq_more: Didn't find your answer?
+  faq_more_body: Reach out directly and our team will get back to you shortly.
+  scroll: Scroll
+  map_title: Gewinnen Ltd. on the map
+  cta_title: Let's protect the planet<br>we share — together.
+  cta_body: Materials sourcing, piping works or water treatment — tell us what you need.
+  not_found: Page not found
+  not_found_body: The page you're looking for may have moved, been renamed or is temporarily unavailable.
+  go_home: Back to home
+  lightbox_close: Close image
+  opens_new: (opens in a new tab)

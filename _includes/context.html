@@ -1,0 +1,17 @@
+{%- comment -%}
+  Page-level context for the default layout: language, UI strings and the
+  URL of this page in the other language (pages share a `ref` across
+  languages; without one we fall back to the other language's home page).
+{%- endcomment -%}
+{%- include lang.html -%}
+{%- if lang == 'en' -%}{%- assign alt_lang = 'zh-TW' -%}{%- else -%}{%- assign alt_lang = 'en' -%}{%- endif -%}
+{%- assign alt_t = site.data.i18n[alt_lang] -%}
+{%- assign alt_url = alt_t.home_url -%}
+{%- assign translations = '' | split: '' -%}
+{%- if page.ref -%}
+  {%- assign all_docs = site.pages | concat: site.posts | concat: site.cases -%}
+  {%- assign translations = all_docs | where: 'ref', page.ref -%}
+  {%- for d in translations -%}
+    {%- if d.lang == alt_lang -%}{%- assign alt_url = d.url -%}{%- endif -%}
+  {%- endfor -%}
+{%- endif -%}

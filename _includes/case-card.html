@@ -1,0 +1,16 @@
+{%- assign c = include.case -%}
+<article class="case-card{% if include.feature %} case-card--feature{% endif %}" data-reveal>
+  <a class="case-card__link" href="{{ c.url | relative_url }}">
+    <div class="case-card__media">
+      <img src="{{ c.thumb | default: c.image | relative_url }}"{% if c.thumb_srcset %} srcset="{{ c.thumb_srcset }}" sizes="(min-width: 992px) 60vw, 100vw"{% endif %} width="{{ c.thumb_width | default: 768 }}" height="{{ c.thumb_height | default: 543 }}" alt="{{ c.image_alt | default: c.title }}" loading="lazy" decoding="async">
+    </div>
+    <div class="case-card__body">
+      {%- if c.tags.size > 0 %}
+      <ul class="chips chips--sm">{% for tag in c.tags %}<li>{{ tag }}</li>{% endfor %}</ul>
+      {%- endif %}
+      <h3 class="case-card__title">{{ c.title }}</h3>
+      <p class="case-card__excerpt">{{ c.description | default: c.excerpt | strip_html | truncate: 110 }}</p>
+      <span class="case-card__more">{{ t.view_case }}{% include icon.html name="arrow" %}</span>
+    </div>
+  </a>
+</article>

@@ -1,4 +1,118 @@
 ---
 layout: default
 ---
-{{ content }}
+{%- include lang.html -%}
+{%- assign services_page = site.pages | where: 'ref', 'services' | where: 'lang', lang | first -%}
+{%- assign cases_page = site.pages | where: 'ref', 'cases' | where: 'lang', lang | first -%}
+{%- assign news_page = site.pages | where: 'ref', 'news' | where: 'lang', lang | first -%}
+{%- assign cases = site.cases | where: 'lang', lang | sort: 'date' | reverse -%}
+{%- assign posts = site.posts | where: 'lang', lang -%}
+{%- assign h = page.hero -%}
+
+<section class="hero" aria-labelledby="hero-title">
+  <div class="hero__media">
+    <img src="{{ h.image | relative_url }}" srcset="{{ h.srcset }}" sizes="100vw" width="1440" height="988" alt="{{ h.image_alt }}" fetchpriority="high" decoding="async">
+  </div>
+  <div class="container hero__inner">
+    <p class="eyebrow eyebrow--light hero__eyebrow">{{ h.eyebrow }}</p>
+    <h1 class="hero__title" id="hero-title">
+      {%- for line in h.title -%}
+      <span class="hero__line"><span>{{ line }}</span></span>
+      {%- endfor -%}
+    </h1>
+    <p class="hero__lead">{{ h.lead }}</p>
+    <div class="hero__actions">
+      <a class="btn btn--light" href="{{ h.primary.url | relative_url }}">{{ h.primary.label }}{% include icon.html name="arrow" %}</a>
+      <a class="btn btn--ghost-light" href="{{ h.secondary.url | relative_url }}">{{ h.secondary.label }}</a>
+    </div>
+  </div>
+  <div class="container">
+    <div class="hero__foot">
+      <span class="hero__scroll" aria-hidden="true"><span class="hero__scroll-line"></span>{{ t.scroll }}</span>
+      <ol class="hero__index" aria-label="{{ page.services.title }}">
+        {%- for s in services_page.services %}
+        <li><a href="{{ services_page.url | relative_url }}#{{ s.id }}"><span>0{{ forloop.index }}</span>{{ s.title }}</a></li>
+        {%- endfor %}
+      </ol>
+    </div>
+  </div>
+</section>
+
+<div class="marquee" aria-hidden="true">
+  <div class="marquee__track">
+    {%- for i in (1..2) %}
+    <p class="marquee__group">
+      {%- for word in page.marquee -%}
+      <span class="marquee__word{% cycle '', ' marquee__word--outline' %}">{{ word }}</span><span class="marquee__dot"></span>
+      {%- endfor -%}
+    </p>
+    {%- endfor %}
+  </div>
+</div>
+
+<section class="section about" aria-labelledby="about-title">
+  <div class="container about__grid">
+    {% include section-head.html index="01" label=page.about.label title=page.about.title id="about-title" %}
+    <div class="about__body">
+      <div class="prose prose--lead" data-reveal>
+        {{ content }}
+      </div>
+      <a class="link-arrow" href="{{ page.about.link.url | relative_url }}" data-reveal>{{ page.about.link.label }}{% include icon.html name="arrow" %}</a>
+    </div>
+    <figure class="about__media" data-reveal>
+      <img src="{{ page.about.image | relative_url }}" width="286" height="221" alt="{{ page.about.image_alt }}" loading="lazy" decoding="async">
+    </figure>
+  </div>
+</section>
+
+<section class="section section--alt services" aria-labelledby="services-title">
+  <div class="container">
+    {% include section-head.html index="02" label=page.services.label title=page.services.title id="services-title" link_url=services_page.url link_label=t.view_all %}
+    <ol class="service-cards" role="list">
+      {%- for s in services_page.services %}
+      <li class="service-card" data-reveal>
+        <a class="service-card__link" href="{{ services_page.url | relative_url }}#{{ s.id }}">
+          <span class="service-card__num">0{{ forloop.index }}</span>
+          <img class="service-card__icon" src="{{ s.icon | relative_url }}" width="200" height="200" alt="" loading="lazy" decoding="async">
+          <h3 class="service-card__title">{{ s.title }}</h3>
+          <p class="service-card__text">{{ s.summary }}</p>
+          <span class="service-card__more">{{ t.read_more }}{% include icon.html name="arrow" %}</span>
+        </a>
+      </li>
+      {%- endfor %}
+    </ol>
+  </div>
+</section>
+
+<section class="section section--ink pillars" aria-labelledby="pillars-title">
+  <div class="container">
+    {% include section-head.html index="03" label=page.pillars.label title=page.pillars.title id="pillars-title" modifier="light" %}
+    <ol class="pillars__list" role="list">
+      {%- for p in page.pillars.items %}
+      <li class="pillar" data-reveal>
+        <span class="pillar__label">{{ p.label }}</span>
+        <h3 class="pillar__title">{{ p.title }}</h3>
+        <p class="pillar__text">{{ p.text }}</p>
+      </li>
+      {%- endfor %}
+    </ol>
+  </div>
+</section>
+
+<section class="section cases-section" aria-labelledby="cases-title">
+  <div class="container">
+    {% include section-head.html index="04" label=page.cases.label title=page.cases.title id="cases-title" link_url=cases_page.url link_label=t.view_all %}
+    <div class="case-grid">
+      {%- for c in cases limit: 3 %}
+      {% include case-card.html case=c feature=forloop.first %}
+      {%- endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="section section--alt news-section" aria-labelledby="news-title">
+  <div class="container news-section__grid">
+    {% include section-head.html index="05" label=page.news.label title=page.news.title id="news-title" link_url=news_page.url link_label=t.view_all %}
+    {% include post-list.html posts=posts limit=4 %}
+  </div>
+</section>

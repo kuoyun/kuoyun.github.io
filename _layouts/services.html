@@ -1,0 +1,31 @@
+---
+layout: default
+---
+{%- include lang.html -%}
+{% include page-hero.html %}
+<section class="section section--tight">
+  <div class="container">
+    {%- assign body_text = content | strip -%}
+    {%- if body_text != '' %}
+    <div class="prose prose--lead services__intro" data-reveal>{{ content }}</div>
+    {%- endif %}
+    <ol class="service-list" role="list">
+      {%- for s in page.services %}
+      <li class="service-row" id="{{ s.id }}" data-reveal>
+        <span class="service-row__num">0{{ forloop.index }}</span>
+        <div class="service-row__main">
+          <h2 class="service-row__title">{{ s.title }}</h2>
+          {%- if s.tags %}
+          <ul class="chips">{% for tag in s.tags %}<li>{{ tag }}</li>{% endfor %}</ul>
+          {%- endif %}
+          <p class="service-row__text">{{ s.summary }}</p>
+          <a class="link-arrow" href="{{ t.contact_url | relative_url }}">{{ t.contact_cta }}{% include icon.html name="arrow" %}</a>
+        </div>
+        <div class="service-row__icon">
+          <img src="{{ s.icon | relative_url }}" width="200" height="200" alt="" loading="lazy" decoding="async">
+        </div>
+      </li>
+      {%- endfor %}
+    </ol>
+  </div>
+</section>

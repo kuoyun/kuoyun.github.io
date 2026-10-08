@@ -1,0 +1,22 @@
+{%- comment -%}
+  Inner-page header. Params: eyebrow, title, lead (all optional; default to page data).
+{%- endcomment -%}
+{%- assign ph_title = include.title | default: page.heading | default: page.title -%}
+{%- assign ph_lead = include.lead | default: page.description -%}
+{%- assign ph_eyebrow = include.eyebrow | default: page.eyebrow -%}
+<header class="page-hero">
+  <div class="container page-hero__inner">
+    {%- include breadcrumbs.html %}
+    {%- if ph_eyebrow %}
+    <p class="eyebrow page-hero__eyebrow">{{ ph_eyebrow }}</p>
+    {%- endif %}
+    <h1 class="page-hero__title">{{ ph_title }}</h1>
+    {%- if ph_lead %}
+    <p class="page-hero__lead">{{ ph_lead }}</p>
+    {%- endif %}
+    {{ include.extra }}
+  </div>
+  {%- if ph_eyebrow %}
+  <p class="page-hero__ghost" aria-hidden="true">{{ ph_eyebrow }}</p>
+  {%- endif %}
+</header>
