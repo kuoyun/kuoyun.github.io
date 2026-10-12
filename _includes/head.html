@@ -1,6 +1,23 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <script>document.documentElement.className=document.documentElement.className.replace('no-js','js')</script>
+{%- if lang == site.lang and translations.size > 1 %}
+{%- comment -%}
+  Visitors whose browser lists no Chinese language get the English version
+  of this page. A language picked with the 中/EN switch (saved by main.js)
+  always wins, and crawlers are never redirected so the Chinese pages stay indexed.
+{%- endcomment %}
+<script>
+(function () {
+  var pref = null;
+  try { pref = localStorage.getItem('lang'); } catch (e) {}
+  if (pref === '{{ t.hreflang }}' || /bot|crawl|spider|slurp|facebookexternalhit|lighthouse|headless/i.test(navigator.userAgent)) return;
+  var langs = navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language || ''];
+  var hasZh = langs.some(function (l) { return /^zh\b/i.test(l); });
+  if (pref === '{{ alt_t.hreflang }}' || !hasZh) location.replace('{{ alt_url | relative_url }}' + location.search + location.hash);
+})();
+</script>
+{%- endif %}
 {%- if page.url == t.home_url -%}
   {%- capture seo_title -%}{{ t.site_title }} | {{ t.tagline }}{%- endcapture -%}
 {%- else -%}

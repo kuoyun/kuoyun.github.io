@@ -9,6 +9,14 @@
   var toggle = document.querySelector('[data-menu-toggle]');
   var heroImg = document.querySelector('.hero__media img');
 
+  // Remember the language picked with the 中/EN switch; the redirect script
+  // in <head> honours it over the browser's language.
+  document.querySelectorAll('a[hreflang]').forEach(function (a) {
+    a.addEventListener('click', function () {
+      try { localStorage.setItem('lang', a.getAttribute('hreflang')); } catch (e) {}
+    });
+  });
+
   // Header: solid once the page scrolls, tucked away while scrolling down,
   // back as soon as the visitor scrolls up. Also drives a light hero parallax.
   var lastY = window.scrollY;
